@@ -23,7 +23,7 @@ const progressed = $(".progressed");
 const clickHeart = $(".layout-singing__infoSong-icon.active");
 const getTime = $(".time-ended");
 const RunTime = $(".wait-time");
-
+const undulating = $(".undulating");
 const appMusic = {
     isPlaySong: false,
     currentIndex: 0,
@@ -157,7 +157,8 @@ function handleEventSong() {
             behavior: "smooth",
             block: "center"
         })
-        runTimeSong();
+        timeDuration();
+        undulating.style.display = "flex";
 
     }
     // khi bài hát bị pause()
@@ -168,7 +169,9 @@ function handleEventSong() {
         getIconBtn.classList.remove("fa-pause");
         getIconBtn.classList.add("fa-play");
         changeBtn.innerText = "TIẾP TỤC PHÁT"
+        undulating.style.display = "none";
     }
+
     
     // tiến độ bài hát (thanh progress)
     audio.ontimeupdate = function() {
@@ -226,7 +229,7 @@ function handleEventSong() {
     iconNextSong.onclick = () => {
         nextSong();
         renderSong();
-        audio.play()
+        audio.play();
     }
     // xử lý trở về bài hát trước đó
     iconBackSong.onclick = () => {
@@ -315,15 +318,24 @@ function handleEventSong() {
             appMusic.isHeart = false;
         }
     }
-
     
 }
+
 // lấy thời gian của bài hát
 function runTimeSong() {
     const minute = (audio.duration / 60).toFixed();
     const date = new Date();
     const second = date.getSeconds();
     RunTime.innerHTML = "0" + minute + ":" + second;
+}
+
+// thời gian của bài hát
+function timeDuration() {
+    const minute = (audio.duration / 60).toFixed();
+    const second = (audio.duration % 60).toFixed();
+    const m = minute < 10 ? "0" + minute : minute;
+    getTime.innerText = m + ":" + second;
+    console.log(getTime.innerText)
 }
 
 // volum mặt định khi vào app

@@ -10,6 +10,7 @@ html{
 body{
     font-size: 1.6rem;
 }
+
 .layout-appMusic{
     display: flex;
     flex-direction: column;
@@ -275,6 +276,7 @@ body{
                                     &:hover{
                                         transform: scale(1.1);
                                     }
+                                    
                                 }
                                 .topic-title{
                                     position: absolute;
@@ -287,6 +289,62 @@ body{
                                     text-shadow: 0 0 10px rgb(17, 255, 0);
                                     text-align: start;
                                     pointer-events: none;
+                                    .undulating{
+                                        position: absolute;
+                                        top: -11rem;
+                                        left: 9rem;
+                                        width: 8rem;
+                                        height: 8rem;
+                                        border: 1px solid rgb(249, 249, 249);
+                                        border-radius: 50%;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        display: none;
+                                        &-item.item1,
+                                        &-item.item2,
+                                        &-item.item3,
+                                        &-item.item4{
+                                            width: 0.5rem;
+                                            height: 3rem;
+                                            background-color: transparent;
+                                            margin-left: 1px;
+                                            margin-right: 1px;
+                                            position: relative;
+                                            &::after{
+                                                content: "";
+                                                position: absolute;
+                                                width: 0.5rem;
+                                                bottom: 0;
+                                                background-image: linear-gradient(to top left,red,rgb(0, 255, 47),rgb(228, 24, 211),blue);
+                                            }
+                                        }
+                                        &-item.item1{
+                                            &::after{
+                                                animation: animations linear 1.5s infinite; 
+                                                animation-delay: 0;
+                                            }
+                                            }
+                                        &-item.item2{
+                                            &::after{
+                                                animation: animations linear 1.2s infinite; 
+                                                animation-delay: 1;
+                                            }
+                                            }
+                                        &-item.item3{
+                                            &::after{
+                                                animation: animations linear .8s infinite; 
+                                                animation-delay: 2;
+                                            }
+                                            }
+                                        &-item.item4{
+                                            &::after{
+                                                animation: animations linear 1.6s infinite; 
+                                                animation-delay: 3;
+                                            }
+                                            }
+                                        
+                                    }
                                 }   
                             }
                             &__content{
@@ -308,6 +366,7 @@ body{
                                     border-radius: 3rem;
                                     margin-top: 1.5rem;
                                     cursor: pointer;
+                                    user-select: none;
                                     &-icon{
                                         color: #fff;
                                         margin-right: 1rem;
@@ -344,6 +403,7 @@ body{
                                         }
                                     }
                                 }
+                                
                             }
                         }
                         .main-song{
@@ -703,5 +763,19 @@ body{
         align-items: center;
         font-weight: bold;
         color: red;
+    }
+}
+@keyframes  animations{
+    0%{
+        height: 20%;
+    }
+    40%{
+        height: 100%;
+    }
+    70%{
+        height: 20%;
+    }
+    100%{
+        height: 100%;
     }
 }
