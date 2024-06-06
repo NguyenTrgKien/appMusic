@@ -21,6 +21,8 @@ const btnRandom = $(".layout-singing__controls-play-btn-icon.btn-random");
 const progressBar = $(".progress-bar");
 const progressed = $(".progressed");
 const clickHeart = $(".layout-singing__infoSong-icon.active");
+const getTime = $(".time-ended");
+const RunTime = $(".wait-time");
 
 const appMusic = {
     isPlaySong: false,
@@ -155,6 +157,8 @@ function handleEventSong() {
             behavior: "smooth",
             block: "center"
         })
+        runTimeSong();
+
     }
     // khi bài hát bị pause()
     audio.onpause = function() {
@@ -312,6 +316,14 @@ function handleEventSong() {
         }
     }
 
+    
+}
+// lấy thời gian của bài hát
+function runTimeSong() {
+    const minute = (audio.duration / 60).toFixed();
+    const date = new Date();
+    const second = date.getSeconds();
+    RunTime.innerHTML = "0" + minute + ":" + second;
 }
 
 // volum mặt định khi vào app

@@ -3,478 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="#" />
-    <title>Music</title>
+    <title>Audio Player</title>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html{
-            font-size: 62.5%;
-            font-family: "Roboto", sans-serif;
-        }
-        body{
-            font-size: 1.6rem;
-            background-color: rgb(237, 237, 237);
-            height: 100vh;
-            background-image: url(https://i.ytimg.com/vi/k3TZZVEEKao/hqdefault.jpg);
-            background-repeat: no-repeat;
-            background-size: 100%;
-            background-position: center;
-        }
-        .layout{
-            position: relative;
-            max-width: 40rem;
-            margin: 0 auto;
-        }
-        .dashboard{
-            position: fixed;
-            width: 100%;
-            max-width: 40rem;
-            text-align: center;
-            background-image: linear-gradient(to right top, rgb(78, 78, 79),rgb(27, 192, 93));
-            padding: 2.5rem 1.5rem 1rem 1.5rem;
-            border-top-left-radius: 1rem;
-            border-top-right-radius: 1rem;
-            z-index: 10;
-        }
-        .dashboard header h4{
-            font-size: 1rem;
-            color: rgb(222, 47, 47);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .dashboard header h2{
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        .cd{
-            width: 22rem;
-            margin: 0 auto;
-            margin-bottom: 2rem;
-            display: flex;
-        }
-        .cd__img{
-            background-image: url();
-            background-size: cover;
-            object-fit: cover;
-            width: 100%;
-            padding-top: 100%;
-            border-radius: 50%;
-        }
-        .controls{
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-        .btn{
-            font-size: 2rem;
-        }
-        .btn__play{
-            width:4.5rem;
-            height:4.5rem;
-            background-color: rgb(234, 63, 63);
-            border-radius: 50%;
-        }
-        .btn__play > .btn__icon-play{
-            font-size: 2rem;
-            color: #fff;
-            padding: 1.3rem 0 0 0.4rem;
-        }
-        .btn__icon-play.fa-pause{
-            padding: 1.3rem 0 0 0.1rem;
-        }
-        .btn__return,
-        .btn__next{
-            position: relative;
-        }
-        .btn__return::before,
-        .btn__next::before{
-            content: "";
-            position: absolute;
-            width: 3.5rem;
-            height: 3.5rem;
-            background-color: #ffbcbc;
-            border-radius: 50%;
-            top: -8px;
-            opacity: 0;
-            transition: all linear .25s;
-        }
-        .btn__return::before{left: -1.4rem;}
-        .btn__next::before{left: -1.1rem;}
-        .btn__return:hover::before,
-        .btn__next:hover::before{opacity: 1;}
-        .btn__icon-back,
-        .btn__icon-next{
-            position: relative;
-        }
-        .btn__icon-back::after,
-        .btn__icon-next::after{
-            content: "";
-            position: absolute;
-            height: 60%;
-            top: 3.5px;
-        }
-        .btn__icon-back::after{
-            border-left: 3px solid #000;
-            left: -2px;
-        }
-        .btn__icon-next::after{
-            border-right: 3px solid #000;
-            right: -2px;
-        }
-        .progress{
-            margin-top: 2rem;
-            width: 100%;
-            cursor: pointer;
-        }
-        .active{
-            color: rgb(214, 32, 32);
-        }
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
 
-        .playlist{
-            position: absolute;
-            width: 100%;
-            height: 100vh;
-            border: 1px solid rgb(209, 209, 209);
-            overflow: auto;
-            background-color: #dcdcdc;
-            padding: 42rem 1.5rem 2rem 1.5rem;
-            border-top-right-radius: 1rem;
-            border-top-left-radius: 1rem;
-            box-shadow: 1px 1px 10px rgb(97, 97, 97);
-        }
-        .playlist::-webkit-scrollbar{
-            display: none;
-        }
-        .song{
-            border-radius: 0.6rem;
-            margin-bottom: 1.2rem;
-            padding: 1.6rem;
-            display: flex;
-            background-color: #fff;
-            cursor: pointer;
-            transition: all linear .1s;
-        }
-        .song:hover{
-            background-color: #ffc1c1;
-        }
-        .song:active{
-            box-shadow:inset 0px 0px 15px #a71b1b;
-        }
-        .song.active{
-            background-color: red;
-            color: #fff;
-            box-shadow: 0 0 10px rgb(111, 111, 111);
-        }
-        .img-song{
-            width: 3.5rem;
-            height: 3.5rem;
-            margin-right: 1.6rem;
+.audio-player {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
 
-        }
-        .img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .icon-song{
-            margin-left: auto;
-            padding-top: 1rem;
-        }
-        .name-song{
-            font-size: 1.6rem;
-            font-weight: 600;
-        }
-        .desc-singer{
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-        }
-        @media (min-width: 400px){
-            .dashboard{
-                top: 3rem;
-            }
-            .playlist{
-                height: calc(100vh - 3rem);
-                margin-top: 3rem;
-            }
-        }
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+#play-pause {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background: #007bff;
+    border-radius: 5px;
+    transition: width 0.1s;
+}
     </style>
 </head>
 <body>
-    <div class="layout">
-        <div class="dashboard">
-            <header>
-                <h4>Now playing</h4>
-                <h2>
-                    String 57th & 9th
-                </h2>
-            </header>
-            <div class="cd">
-                <div class="cd__img"></div>
+    <div class="audio-player">
+        <audio id="audio" src="your-song.mp3"></audio>
+        <div class="controls">
+            <button id="play-pause">Play</button>
+            <div class="progress-bar" id="progress-bar">
+                <div class="progress" id="progress"></div>
             </div>
-            <div class="controls">
-                <div class="btn btn__repeat">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </div>
-                <div class="btn btn__return">
-                    <i class="fa-solid fa-caret-left btn__icon-back"></i>
-                </div>
-                <div class="btn btn__play">
-                    <i class="fa-solid fa-play btn__icon-play"></i>
-                </div>
-                <div class="btn btn__next">
-                    <i class="fa-solid fa-caret-right btn__icon-next"></i>
-                </div>
-                <div class="btn btn__random">
-                    <i class="fa-solid fa-shuffle"></i>
-                </div>
-            </div>
-            <input class="progress" id="progress" type="range" value="0" step="1" min="0" max="100">
-            <audio id="audio" src=""></audio>
-        </div>
-        <div class="playlist">
+            <span id="current-time">00:00</span> / <span id="duration">00:00</span>
         </div>
     </div>
-
     <script>
-        const $ = document.querySelector.bind(document);
-        const $$ = document.querySelectorAll.bind(document);
-        const heading = $("header h2");
-        const cdImg = $(".cd__img");
-        const audio = $('#audio');
-        const cd = $(".cd"); 
-        const btnPlay = $(".btn__play");
-        const btnIconPlay = $(".btn__icon-play");
-        const progress = $(".progress");
-        const iconNext = $(".btn__next");
-        const iconBack = $(".btn__return");
-        const iconRandom = $(".btn__random");
-        const repeatBtn = $(".btn__repeat");
-        const getPlayList = $('.playlist');
-        const app = {
-            curentIndex:0,
-            isPlaying: false,
-            isNextSong : false,
-            isRandom: false,
-            isRepeat: false,
-            song: [
-                
-                {
-                    name: "Vở Kịch Của Em",
-                    singer: "HuyN-TRường Alex",
-                    image: "../img/vokichcuaem.png",
-                    link: "../music/vokichcuaem.mp3"
-                },
-                {
-                    name: "Nhớ Về Em",
-                    singer: "Quang Hà",
-                    image: "../img/nhoveem.png",
-                    link: "../music/nhoveem.mp3"
-                },
-                {
-                    name: "Anh Không Tha Thứ",
-                    singer: "Đình Dũng",
-                    image: "../img/anhkhongthathu.png",
-                    link: "../music/anhkhongthathu.mp3"
-                }
-            ],
-            render: function() {
-                var html = this.song.map((a,index) => {
-                    return `
-                        <div class="song ${(index === app.curentIndex) ? "active" : ""}" data-index= "${index}">
-                            <div class="img-song">
-                                <img src="${a.image}" alt="" class="img">
-                            </div>
-                            <div class="content-info">
-                                <h4 class="name-song">
-                                    ${a.name}
-                                </h4>
-                                <div class="desc-singer">
-                                    ${a.singer}
-                                </div>
-                            </div>
-                            <div class="icon-song">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </div>
-                        </div>
-                    `;
-                })
-                getPlayList.innerHTML = html.join("");
-            },
-            defineProperties: function() {
-                Object.defineProperty(this, "currentSong", {
-                    get: function() {
-                        return this.song[this.curentIndex];
-                    }
-                })
-            },
-            handleEvents: function() {
-                const widthCd = cd.offsetWidth;
-                const playlist = $(".playlist");
-                const cdFrame = [
-                    { transform: "rotate(360deg)"}
-                ]
-                const cdTiming = {
-                    duration: 12000,
-                    iterations: Infinity,
-                }
-                var cdPlay = cdImg.animate(cdFrame,cdTiming);
-                cdPlay.pause();
-                // phóng to thu nhỏ img song
-                playlist.addEventListener("scroll", () => {
-                    const scrollTop = Math.ceil(playlist.scrollTop);
-                    var newWidth = widthCd - scrollTop;
-                    newWidth > 0 ? cd.style.width = newWidth + "px" : cd.style.width = 0;
-                    cd.style.opacity = newWidth / widthCd;
-                })
+        document.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('play-pause');
+    const progressBar = document.getElementById('progress-bar');
+    const progress = document.getElementById('progress');
+    const currentTimeElement = document.getElementById('current-time');
+    const durationElement = document.getElementById('duration');
 
-                // play and pause
-                btnPlay.onclick = function() {
-                    if(app.isPlaying == false){
-                        audio.play();
-                    }else if(app.isPlaying == true){
-                        audio.pause();
-                        
-                    }
-                }
-                // khi bài hát được playing
-                audio.onplay = function() {
-                    app.isPlaying = true;
-                    btnIconPlay.classList.add("fa-pause");
-                    btnIconPlay.classList.remove("fa-play"); 
-                    cdPlay.play();
-                    // lam noi bật bài hát current
-                    app.render();
-                    $(".song.active").scrollIntoView({
-                        behavior: "smooth",
-                        block: "end"
-                    });
-                }
-                // khi bài hát bị pause
-                audio.onpause = function() {
-                    app.isPlaying = false;
-                    btnIconPlay.classList.remove("fa-pause");
-                    btnIconPlay.classList.add("fa-play");
-                    cdPlay.pause();
-                }
-                // phần trăm của thanh progress
-                audio.ontimeupdate = function() {
-                    if(audio.currentTime){
-                        const progressPercent = audio.currentTime / audio.duration * 100;
-                        progress.value = progressPercent;
-                    }
-                }
-                // tua progress
-                progress.oninput = function(e) {
-                    const seekTime = audio.duration  / 100 * e.target.value;
-                    audio.currentTime = seekTime;
-                }
-                // bai hat ke tiep
-                iconNext.onclick = function() {
-                    if(!app.isRandom){
-                        app.nextCurrentSong();
-                    }else{
-                        app.randomSong();
-                    }
-                    audio.play();
-                }
-                // trở lại bài hát trước đó
-                iconBack.onclick = function() {
-                    if(!app.isRandom){
-                        app.backCurrentSong();
-                    }else{
-                        app.randomSong();
-                    }
-                    audio.play();
-                }
-                // kiểm tra click vào icon random
-                iconRandom.onclick = function(e) {
-                    app.isRandom = !app.isRandom;
-                    iconRandom.classList.toggle("active",app.isRandom);
-                }
-                // lặp lại bài hát
-                repeatBtn.onclick = function() {
-                    app.isRepeat = !app.isRepeat;
-                    repeatBtn.classList.toggle("active",app.isRepeat);
-                }
-                // onended khi bài hát kết thúc
-                audio.onended = function() {
-                    if(app.isRepeat){
-                        audio.play();
-                    }else{
-                        iconNext.click();
-                    }
-                }
-                getPlayList.onclick = function(e) {
-                    const songClick = e.target.closest(".song:not(.active)")
-                    if(songClick || (e.target.closest(".icon-song"))){
-                        if(songClick){
-                            app.curentIndex = Number(songClick.dataset.index);
-                            app.loadCurrentSong();   
-                            audio.play();
-                            app.render();
-                        }else if((e.target.closest(".icon-song"))){
-
-                        }
-                    }
-
-                }
-
-            },
-            backCurrentSong:function() {
-                this.curentIndex--;
-                if(this.curentIndex < 0){
-                    this.curentIndex = this.song.length - 1;
-                }
-                this.loadCurrentSong();
-            },
-            nextCurrentSong: function() {
-                this.curentIndex++;
-                if(this.curentIndex > this.song.length - 1){
-                    this.curentIndex = 0;
-                }
-                this.loadCurrentSong();
-            },
-            randomSong: function() {
-                do{
-                    var newCurentIndex = Math.floor(Math.random() * this.song.length);
-                    console.log(newCurentIndex)
-                }while(newCurentIndex === this.curentIndex)
-                this.curentIndex = newCurentIndex;
-                this.loadCurrentSong();
-            },
-
-            loadCurrentSong: function() {
-                heading.innerText = this.currentSong.name;
-                cdImg.style.backgroundImage = `url(${this.currentSong.image})`;
-                audio.src = `${this.currentSong.link}`;
-            },
-
-            start: function() {
-                // định nghĩa các thuộc tính cho object
-                this.defineProperties();
-
-                //xử lý các sự kiện (event)
-                this.handleEvents();
-
-                // load thông tin bài toán dầu tiên vào UI
-                this.loadCurrentSong();
-
-                // render ra màn hình 
-                this.render();
-            }
+    playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            playPauseBtn.textContent = 'Pause';
+        } else {
+            audio.pause();
+            playPauseBtn.textContent = 'Play';
         }
+    });
 
-        app.start();
+    audio.addEventListener('timeupdate', () => {
+        const currentTime = audio.currentTime;
+        const duration = audio.duration;
+
+        // Update progress bar
+        const progressPercent = (currentTime / duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+
+        // Update current time
+        currentTimeElement.textContent = formatTime(currentTime);
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+        // Update duration
+        durationElement.textContent = formatTime(audio.duration);
+    });
+
+    progressBar.addEventListener('click', (e) => {
+        const width = progressBar.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+
+        audio.currentTime = (clickX / width) * duration;
+    });
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+});
     </script>
 </body>
 </html>
